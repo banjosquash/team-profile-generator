@@ -1,8 +1,6 @@
 const fs = require('fs')
 
-
 const profileDataArgs = process.argv.slice(2, process.argv.length);
-console.log(profileDataArgs);
 
 const [teamMember, memberRole] = profileDataArgs;
 
@@ -91,4 +89,6 @@ fs.writeFile('index.html', generatePage(teamMember, memberRole), err => {
     console.log('Check out index.html to see the output!');
   });
 
+
+  
   module.exports = generatePage;
