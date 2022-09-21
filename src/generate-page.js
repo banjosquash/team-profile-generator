@@ -1,10 +1,6 @@
-const fs = require('fs')
+const fs = require('fs');
 
-const profileDataArgs = process.argv.slice(2, process.argv.length);
-
-const [teamMember, memberRole] = profileDataArgs;
-
-const generatePage = (teamMember, memberRole ) => {
+const generatePage = (employees) => {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +9,7 @@ const generatePage = (teamMember, memberRole ) => {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>team profile generator</title>
 </head>
 
@@ -21,60 +18,8 @@ const generatePage = (teamMember, memberRole ) => {
         <h1>My Team</h1>
     </header>
 
-    <section class="team-members">
-
-        <div class="member1">
-            <h2>${teamMember}</h2>
-            <h3>${memberRole}</h3>
-            <ul class="team-items">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-
-        <div class="member2">
-            <h2>${teamMember}</h2>
-            <h3>${memberRole}</h3>
-            <ul class="team-items">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-
-        
-        <div class="member3">
-            <h2>${teamMember}</h2>
-            <h3>${memberRole}</h3>
-            <ul class="team-items">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-
-        
-        <div class="member4">
-            <h2>${teamMember}</h2>
-            <h3>${memberRole}</h3>
-            <ul class="team-items">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
-
-        
-        <div class="member5">
-            <h2>${teamMember}</h2>
-            <h3>${memberRole}</h3>
-            <ul class="team-items">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-            </ul>
-        </div>
+    <section class="container">
+        ${generateEmployeeCards(employees)}
     </section>
 
 </body>
@@ -83,11 +28,34 @@ const generatePage = (teamMember, memberRole ) => {
 `;
 }
 
-fs.writeFile('index.html', generatePage(teamMember, memberRole), err => {
-    if (err) throw err;
-  
-    console.log('Check out index.html to see the output!');
-  });
+const generateEmployeeCard = (employee) => {
+    return `
+    <div class=" card shadow bg-white rounded">
+    <div class="card-header">
+            <h2>${employee.getName()}</h2>
+            <h3>${employee.getRole()}</h3>
+        <div class="card small-card">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${employee.getId()}</li>
+                <li class="list-group-item">email: ${employee.getEmail()}</li>
+                <li class="list-group-item"> </li>
+            </ul>
+        </div>
+    </div>
+</div>`;
+        
+};
+
+const generateEmployeeCards = (employees) => {
+    let employeeCards = '';
+    employees.forEach(employee => {
+        employeeCards += generateEmployeeCard(employee) 
+    });
+    return employeeCards;
+};
+
+
+
 
 
   
