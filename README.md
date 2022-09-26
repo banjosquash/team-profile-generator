@@ -3,6 +3,9 @@
 
 # Title: team-profile-generator
 
+## Screenshot
+![](./images/screenshot.png)
+
 ## Description:
 this is a command line app that will build a team based on user input and return an html page 
 ## Table of Contents:
